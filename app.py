@@ -1,5 +1,6 @@
 import streamlit as st
 from clarifai.client.model import Model
+from clarifai.client.input import Inputs
 import base64
 from dotenv import load_dotenv
 from PIL import Image
