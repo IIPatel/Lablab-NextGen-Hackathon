@@ -1,8 +1,9 @@
 import streamlit as st
-from clarifai.modules.css import ClarifaiStreamlitCSS
+from clarifai.client.model import Model
+import base64
+from dotenv import load_dotenv
+from PIL import Image
+from io import BytesIO
 
-st.set_page_config(layout="wide")
-
-ClarifaiStreamlitCSS.insert_default_css(st)
-
-st.markdown("Please select a specific page from the sidebar to the left")
+load_dotenv()
+import os
