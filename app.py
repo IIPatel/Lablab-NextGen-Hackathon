@@ -8,6 +8,11 @@ from io import BytesIO
 load_dotenv()
 import os
 
+user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password")
+
+# Set the environment variable if the user has entered a PAT
+if user_pat:
+    os.environ['CLARIFAI_PAT'] = user_pat
 clarifai_pat = os.getenv("CLARIFAI_PAT")
 
 def generate_image(user_description, api_key):
