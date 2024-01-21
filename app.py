@@ -45,7 +45,7 @@ def understand_image(base64_image, api_key):
         input_text.encode(), input_type="text", inference_params=inference_params
     )
     audio_base64 = model_prediction.outputs[0].data.audio.base64
-    return audio_base64
+        return audio_base64
 
 def main():
     st.set_page_config(page_title="Interactive Media Creator", layout="wide")
