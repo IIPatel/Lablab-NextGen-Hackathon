@@ -15,7 +15,7 @@ def encode_image(image_path):
 
 def understand_image(base64_image, api_key):
     prompt = "Analyze the content of this image and write a creative, engaging story that brings the scene to life. Describe the setting, and actions in a way that would captivate a young audience:"
-    inference_params = dict(temperature=0.2, image_base64=base64_image, api_key=api_key)
+    inference_params = dict(temperature=0.2, image_base64=base64_image)
     model_prediction = Model(
         "https://clarifai.com/openai/chat-completion/models/gpt-4-vision"
     ).predict_by_bytes(
