@@ -8,12 +8,7 @@ from io import BytesIO
 load_dotenv()
 import os
 
-user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password")
 
-# Set the environment variable if the user has entered a PAT
-if user_pat:
-    os.environ['CLARIFAI_PAT'] = user_pat
-clarifai_pat = os.getenv("CLARIFAI_PAT")
 
 def generate_image(user_description, api_key):
     prompt = f"You are a professional scenery artist. Based on the below user's description and content, create a proper story comic: {user_description}"
@@ -55,6 +50,13 @@ def text_to_speech(input_text, api_key):
 def main():
     st.set_page_config(page_title="Interactive Media Creator", layout="wide")
     st.title("Interactive Media Creator")
+
+    user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password")
+
+# Set the environment variable if the user has entered a PAT
+    if user_pat:
+        os.environ['CLARIFAI_PAT'] = user_pat
+        clarifai_pat = os.getenv("CLARIFAI_PAT")
 
     with st.sidebar:
         st.header("Controls")
