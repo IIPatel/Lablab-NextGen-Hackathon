@@ -35,7 +35,7 @@ def understand_image(base64_image, api_key):
 
     def encode_image(image_path):
         with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
+             return base64.b64encode(image_file.read()).decode("utf-8")
 
   def text_to_speech(input_text, api_key):
     inference_params = dict(voice="alloy", speed=1.0, api_key=api_key)
