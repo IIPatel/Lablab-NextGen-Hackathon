@@ -9,7 +9,19 @@ from io import BytesIO
 load_dotenv()
 import os
 
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode("utf-8")
 
+def understand_image(base64_image, api_key):
+    prompt = "Analyze the content of this image and write a creative, engaging story that brings the scene to life. Describe the setting, and actions in a way that would captivate a young audience:"
+    inference_params = dict(temperature=0.2, image_base64=base64_image, api_key=api_key)
+    model_prediction = Model(
+        "https://clarifai.com/openai/chat-completion/models/gpt-4-vision"
+    ).predict_by_bytes(
+        prompt.encode(), input_type="text", inference_params=inference_params
+    )
+    return model_prediction.outputs[0].data.text.raw
 
 def generate_image(user_description, api_key):
     prompt = f"You are a professional scenery artist. Based on the below user's description and content, create a proper story comic: {user_description}"
@@ -23,20 +35,6 @@ def generate_image(user_description, api_key):
     with open("generated_image.png", "wb") as f:
         f.write(output_base64)
     return "generated_image.png"
-
-def understand_image(base64_image, api_key):
-    prompt = "Analyze the content of this image and write a creative, engaging story that brings the scene to life. Describe the setting, and actions in a way that would captivate a young audience:"
-    inference_params = dict(temperature=0.2, image_base64=base64_image, api_key=api_key)
-    model_prediction = Model(
-        "https://clarifai.com/openai/chat-completion/models/gpt-4-vision"
-    ).predict_by_bytes(
-        prompt.encode(), input_type="text", inference_params=inference_params
-    )
-    return model_prediction.outputs[0].data.text.raw
-
-def encode_image(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
 
 def text_to_speech(input_text, api_key):
     inference_params = dict(voice="alloy", speed=1.0, api_key=api_key)
@@ -53,15 +51,11 @@ def main():
     st.title("Interactive Media Creator")
 
     user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password")
-    user_pat2 = st.text_input("Enter your OpenAI Personal Access Token:", type="password")
 
 # Set the environment variable if the user has entered a PAT
     if user_pat:
         os.environ['CLARIFAI_PAT'] = user_pat
         clarifai_pat = os.getenv("CLARIFAI_PAT")
-    if user_pat2:
-        os.environ['OPENAI_PAT'] = user_pat2
-        openai_pat = os.getenv("OPENAI_PAT")
 
 
     with st.sidebar:
@@ -91,8 +85,8 @@ def main():
         if generate_image_btn and image_description:
             with st.spinner("Creating a story..."):
                 base64_image = encode_image(image_path)
-                understood_text = understand_image(base64_image, openai_pat)
-                audio_base64 = text_to_speech(understood_text, openai_pat)
+                understood_text = understand_image(base64_image, clarifai_pat)
+                audio_base64 = text_to_speech(understood_text, clarifai_pat)
                 st.audio(audio_base64, format="audio/mp3")
                 st.success("Audio generated from image understanding!")
 
