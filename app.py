@@ -17,14 +17,14 @@ def understand_image(base64_image, api_key):
     prompt = "Analyze the content of this image and write a creative, engaging story that brings the scene to life. Describe the setting, and actions in a way that would captivate a young audience:"
     inference_params = dict(temperature=0.2, image_base64=base64_image)
     model_prediction = Model(
-        "https://clarifai.com/openai/chat-completion/models/gpt-4-vision"
+        "https://clarifai.com/openai/chat-completion/models/gpt-4-vision?api_key={api_key}"
     ).predict_by_bytes(
         prompt.encode(), input_type="text", inference_params=inference_params
     )
     return model_prediction.outputs[0].data.text.raw
 
 def generate_image(user_description, api_key):
-    prompt = f"You are a professional scenery artist. Based on the below user's description and content, create a proper story comic: {user_description}"
+    prompt = f"You are a professional scenery artist. Based on the below user's description and content, create a scenery without living beings: {user_description}"
     inference_params = dict(quality="standard", size="1024x1024")
     model_prediction = Model(
         f"https://clarifai.com/openai/dall-e/models/dall-e-3?api_key={api_key}"
@@ -39,7 +39,7 @@ def generate_image(user_description, api_key):
 def text_to_speech(input_text, api_key):
     inference_params = dict(voice="alloy", speed=1.0, api_key=api_key)
     model_prediction = Model(
-        "https://clarifai.com/openai/tts/models/openai-tts-1"
+        "https://clarifai.com/openai/tts/models/openai-tts-1?api_key={api_key}"
     ).predict_by_bytes(
         input_text.encode(), input_type="text", inference_params=inference_params
     )
