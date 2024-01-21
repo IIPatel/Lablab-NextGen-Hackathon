@@ -53,11 +53,16 @@ def main():
     st.title("Interactive Media Creator")
 
     user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password")
+    user_pat2 = st.text_input("Enter your OpenAI Personal Access Token:", type="password")
 
 # Set the environment variable if the user has entered a PAT
     if user_pat:
         os.environ['CLARIFAI_PAT'] = user_pat
         clarifai_pat = os.getenv("CLARIFAI_PAT")
+    if user_pat2:
+        os.environ['OPENAI_PAT'] = user_pat2
+        openai_pat = os.getenv("OPENAI_PAT")
+
 
     with st.sidebar:
         st.header("Controls")
@@ -86,8 +91,8 @@ def main():
         if generate_image_btn and image_description:
             with st.spinner("Creating a story..."):
                 base64_image = encode_image(image_path)
-                understood_text = understand_image(base64_image, clarifai_pat)
-                audio_base64 = text_to_speech(understood_text, clarifai_pat)
+                understood_text = understand_image(base64_image, openai_pat)
+                audio_base64 = text_to_speech(understood_text, openai_pat)
                 st.audio(audio_base64, format="audio/mp3")
                 st.success("Audio generated from image understanding!")
 
