@@ -37,7 +37,7 @@ def understand_image(base64_image, api_key):
         with open(image_path, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode("utf-8")
 
-  def text_to_speech(input_text, api_key):
+def text_to_speech(input_text, api_key):
     inference_params = dict(voice="alloy", speed=1.0, api_key=api_key)
     model_prediction = Model(
         "https://clarifai.com/openai/tts/models/openai-tts-1"
