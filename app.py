@@ -13,7 +13,7 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
 
-def understand_image(base64_image, api_key):
+def understand_image(base64_image):
     prompt = "Analyze the content of this image and write a creative, engaging story that brings the scene to life. Describe the setting, and actions in a way that would captivate a young audience:"
     inference_params = dict(temperature=0.2, image_base64=base64_image)
     model_prediction = Model(
@@ -23,11 +23,11 @@ def understand_image(base64_image, api_key):
     )
     return model_prediction.outputs[0].data.text.raw
 
-def generate_image(user_description, api_key):
+def generate_image(user_description):
     prompt = f"You are a professional scenery artist. Based on the below user's description and content, create a scenery without living beings: {user_description}"
     inference_params = dict(quality="standard", size="1024x1024")
     model_prediction = Model(
-        f"https://clarifai.com/openai/dall-e/models/dall-e-3?api_key={api_key}"
+        f"https://clarifai.com/openai/dall-e/models/dall-e-3"
     ).predict_by_bytes(
         prompt.encode(), input_type="text", inference_params=inference_params
     )
@@ -36,8 +36,8 @@ def generate_image(user_description, api_key):
         f.write(output_base64)
     return "generated_image.png"
 
-def text_to_speech(input_text, api_key):
-    inference_params = dict(voice="alloy", speed=1.0, api_key=api_key)
+def text_to_speech(input_text):
+    inference_params = dict(voice="alloy", speed=1.0)
     model_prediction = Model(
         "https://clarifai.com/openai/tts/models/openai-tts-1"
     ).predict_by_bytes(
@@ -69,7 +69,7 @@ def main():
         st.header("Comic Art")
         if generate_image_btn and image_description:
             with st.spinner("Generating image..."):
-                image_path = generate_image(image_description, clarifai_pat)
+                image_path = generate_image(image_description)
                 if image_path:
                     st.image(
                         image_path,
@@ -85,8 +85,8 @@ def main():
         if generate_image_btn and image_description:
             with st.spinner("Creating a story..."):
                 base64_image = encode_image(image_path)
-                understood_text = understand_image(base64_image, clarifai_pat)
-                audio_base64 = text_to_speech(understood_text, clarifai_pat)
+                understood_text = understand_image(base64_image)
+                audio_base64 = text_to_speech(understood_text)
                 st.audio(audio_base64, format="audio/mp3")
                 st.success("Audio generated from image understanding!")
 
