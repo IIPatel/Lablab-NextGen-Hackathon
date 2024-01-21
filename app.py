@@ -85,8 +85,8 @@ def main():
         if generate_image_btn and image_description:
             with st.spinner("Creating a story..."):
                 base64_image = encode_image(image_path)
-                understood_text = understand_image(base64_image, openai_api_key)
-                audio_base64 = text_to_speech(understood_text, openai_api_key)
+                understood_text = understand_image(base64_image, clarifai_pat)
+                audio_base64 = text_to_speech(understood_text, clarifai_pat)
                 st.audio(audio_base64, format="audio/mp3")
                 st.success("Audio generated from image understanding!")
 
