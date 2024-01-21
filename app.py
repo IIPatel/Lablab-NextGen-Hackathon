@@ -83,5 +83,5 @@ def main():
                 st.audio(audio_base64, format="audio/mp3")
                 st.success("Audio generated from image understanding!")
 
-  if __name__ == "__main__":
+if __name__ == "__main__":
     main()
