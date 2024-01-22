@@ -9,6 +9,15 @@ from io import BytesIO
 load_dotenv()
 import os
 
+# Custom CSS to improve the UI
+st.markdown("""
+<style>
+.main {
+    background-color: #f0f2f6;
+}
+</style>
+""", unsafe_allow_html=True)
+
 #Function to encode image to base64 format
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
