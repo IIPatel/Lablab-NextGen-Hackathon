@@ -111,6 +111,6 @@ def main():
                           conversation_history += f"A: {follow_up_response}\n"
                           st.write(follow_up_response)
                           st.session_state.follow_up_counter += 1 
-     st.text(st.session_state.conversation_history)
+st.text(st.session_state.conversation_history)
 if __name__ == "__main__":
     main()
