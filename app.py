@@ -14,7 +14,7 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
 
-Function to analyze the O&M issue and provide a solution
+#Function to analyze the O&M issue and provide a solution
 def analyze_om_issue(base64_image, user_description):
     prompt = f"Analyze the following image from an Operations and Maintenance industry, considering the user's description of the issue: '{user_description}'. Provide a detailed, professional solution, including safety precautions and step-by-step instructions:"
     inference_params = dict(temperature=0.7, image_base64=base64_image)
