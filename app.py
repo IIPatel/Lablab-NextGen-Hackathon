@@ -23,8 +23,9 @@ def encode_image(uploaded_file):
 
 #Function to analyze the O&M issue and provide a solution
 def analyze_om_issue(base64_image, user_description):
-    prompt = f"Analyze the following image from an Operations and Maintenance industry, considering the user's description of the issue: '{user_description}'. Provide a detailed, professional solution, including safety precautions and step-by-step instructions:"
-    inference_params = dict(temperature=0.7, image_base64=base64_image)
+    prompt = f"Analyze this image from the O&M industry, which includes the following description: '{user_description}'. Provide a detailed, practical solution to the issue depicted and described:"
+   # prompt = f"Analyze the following image from an Operations and Maintenance industry, considering the user's description of the issue: '{user_description}'. Provide a detailed, professional solution, including safety precautions and step-by-step instructions:"
+    inference_params = dict(temperature=0.5, image_base64=base64_image)
     model_prediction = Model(
         "https://clarifai.com/openai/chat-completion/models/gpt-4-vision"
     ).predict_by_bytes(
