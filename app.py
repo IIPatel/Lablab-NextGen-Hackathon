@@ -9,14 +9,7 @@ from io import BytesIO
 load_dotenv()
 import os
 
-# Custom CSS to improve the UI
-st.markdown("""
-<style>
-.main {
-    background-color: #f0f2f6;
-}
-</style>
-""", unsafe_allow_html=True)
+
 
 #Function to encode image to base64 format
 def encode_image(image_path):
@@ -73,7 +66,7 @@ def main():
    # st.set_page_config(page_title="Interactive Media Creator", layout="wide")
    # st.title("Interactive Media Creator")
 
-    user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password")
+    user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password", help="Your Clarifai access token is required for processing")
 
 # Set the environment variable if the user has entered a PAT
     if user_pat:
@@ -83,12 +76,12 @@ def main():
 
     with st.sidebar:
         st.header("Controls")
-        uploaded_image = st.file_uploader("Upload an image related to your O&M issue", type=["png", "jpg", "jpeg"])
+        uploaded_image = st.file_uploader("Upload an image related to your O&M issue", type=["png", "jpg", "jpeg"], help="Upload the image related to your O&M issue")
         om_issue_description = st.text_area("Describe your O&M Issue", height=100)
         analyze_btn = st.button("Analyze Issue")
         #st.header("Controls")
-       # image_description = st.text_area("Description for Image Generation", height=100)
-       # generate_image_btn = st.button("Generate Image")
+       # image_description = st.text_area("Description for Image Generation", height=100, help="Provide a detailed description of the issue for accurate analysis")
+       # generate_image_btn = st.button("Generate Image", help="Click to analyze the uploaded image and issue description")
 
     #col1, col2 = st.columns(2)
     
@@ -101,6 +94,12 @@ def main():
                  audio_base64 = text_to_speech(solution_text)
                  st.audio(audio_base64, format="audio/mp3")
                  st.success("Analysis and audio solution generated!")
+                 except Exception as e:
+                     st.error(f"An error occurred: {e}")
+
+if uploaded_image:
+    # Display a preview of the uploaded image
+    st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
    # with col1:
        # st.header("Comic Art")
      #   if generate_image_btn and image_description:
