@@ -9,7 +9,7 @@ from io import BytesIO
 load_dotenv()
 import os
 
-# Function to encode image to base64 format
+#Function to encode image to base64 format
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
@@ -62,7 +62,7 @@ def main():
     st.set_page_config(page_title="OMNI: AI O&M Assistant", layout="wide")
     st.title("OMNI: AI Operations and Maintenance Assistant")
    # st.set_page_config(page_title="Interactive Media Creator", layout="wide")
-   #  st.title("Interactive Media Creator")
+   # st.title("Interactive Media Creator")
 
     user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password")
 
