@@ -108,7 +108,7 @@ def main():
                 if follow_up_question:
                      with st.spinner("Processing your follow-up question..."):
                           st.session_state.conversation_history += f"Q: {follow_up_question}\n"
-                          follow_up_response = handle_ongoing_conversation(base64_image, conversation_history)
+                          follow_up_response = handle_ongoing_conversation(base64_image, st.session_state.conversation_history)
                           st.session_state.conversation_history += f"A: {follow_up_response}\n"
                           st.write(follow_up_response)
                           st.session_state.follow_up_counter += 1 
