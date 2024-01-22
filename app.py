@@ -91,7 +91,7 @@ def main():
             st.audio(audio_base64, format="audio/mp3")
             st.success("Analysis and audio solution generated!")
             conversation_history = ""  # Initialize conversation history
-            conversation_history += f"Q: {om_issue_description}\nA: {initial_response}\n"# Follow-up interaction loop
+            conversation_history += f"Q: {om_issue_description}\nA: {solution_text}\n"# Follow-up interaction loop
         while True:
              follow_up_counter = 0
              follow_up_question_key = f"follow_up_question_{follow_up_counter}"  # Unique key for each iteration
