@@ -10,11 +10,16 @@ load_dotenv()
 import os
 
 
-
+def encode_image(uploaded_file):
+    # Read the file from the UploadedFile object
+    file_bytes = uploaded_file.getvalue()
+    # Encode the file bytes to base64
+    encoded_image = base64.b64encode(file_bytes).decode("utf-8")
+    return encoded_image
 #Function to encode image to base64 format
-def encode_image(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
+#def encode_image(image_path):
+    #with open(image_path, "rb") as image_file:
+       # return base64.b64encode(image_file.read()).decode("utf-8")
 
 #Function to analyze the O&M issue and provide a solution
 def analyze_om_issue(base64_image, user_description):
