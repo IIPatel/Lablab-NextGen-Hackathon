@@ -1,16 +1,22 @@
-![Clarifai logo](https://www.clarifai.com/hs-fs/hubfs/logo/Clarifai/clarifai-740x150.png?width=240)
+# OMNI: AI Operations and Maintenance Assistant
 
-# Clarifai App Module Template
+OMNI is an AI-powered tool designed to assist with Operations and Maintenance (O&M) tasks. Using advanced AI models, OMNI analyzes images and descriptions of O&M issues to provide detailed, practical solutions.
 
-This is a template repository to make it easy to get started creating a UI module with Clarifai.
+## Features
 
+- **Image Analysis**: Analyze images related to O&M issues.
+- **Text-to-Speech Conversion**: Convert analysis results to audio for accessibility.
 
-## To use this repo
+## Configuration
 
-1. Click the "Use this template" green button on github to make a repo from this repo template and give it a name of the format module-{XYZ} filling in the XYZ portion.
-2. Clone the new repo as normal to your development environment.
-3. `pip install -r requirements.txt` to make sure you have all the Python packages installed. Add any new packages to this requirements.txt file that you add during development.
-4. Update the README.md to capture what your new module will do.
-5. Rename the pages/*.py files as you desire and start filling them in to implement your module.
-6. After you're tried things out locally, push your changes to github and get the git commit URL from there in order to create a module in Clarifai.
-7. Go to any app you can create in within Clarifai, select Modules on the left and "Create Module" button, then follow the steps.
+Ensure you have a valid Clarifai Personal Access Token. Enter this token in the application sidebar to authenticate your session.
+
+## Acknowledgments
+- LabLab.ai for Hackathon and giving access to Clarifai PAT for this hackathon.
+- Clarifai API for AI-powered image and text analysis.
+- Streamlit for creating an interactive web application.
+
+---
+
+Developed with ❤ by Ibrahim Patel
+```
