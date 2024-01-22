@@ -16,10 +16,6 @@ def encode_image(uploaded_file):
     # Encode the file bytes to base64
     encoded_image = base64.b64encode(file_bytes).decode("utf-8")
     return encoded_image
-#Function to encode image to base64 format
-#def encode_image(image_path):
-    #with open(image_path, "rb") as image_file:
-       # return base64.b64encode(image_file.read()).decode("utf-8")
 
 #Function to analyze the O&M issue and provide a solution
 def analyze_om_issue(base64_image, user_description):
@@ -33,15 +29,6 @@ def analyze_om_issue(base64_image, user_description):
     )
     return model_prediction.outputs[0].data.text.raw
     
-def understand_image(base64_image):
-    prompt = "Analyze the content of this image and write a creative, engaging story that brings the scene to life. Describe the setting, and actions in a way that would captivate a young audience:"
-    inference_params = dict(temperature=0.2, image_base64=base64_image)
-    model_prediction = Model(
-        "https://clarifai.com/openai/chat-completion/models/gpt-4-vision"
-    ).predict_by_bytes(
-        prompt.encode(), input_type="text", inference_params=inference_params
-    )
-    return model_prediction.outputs[0].data.text.raw
 
 def generate_image(user_description):
     prompt = f"You are a professional scenery artist. Based on the below user's description and content, create a scenery without living beings: {user_description}"
@@ -79,7 +66,6 @@ def main():
         os.environ['CLARIFAI_PAT'] = user_pat
         clarifai_pat = os.getenv("CLARIFAI_PAT")
 
-
     with st.sidebar:
         st.header("Controls")
         uploaded_image = st.file_uploader("Upload an image related to your O&M issue", type=["png", "jpg", "jpeg"], help="Upload the image related to your O&M issue")
@@ -88,13 +74,7 @@ def main():
         if uploaded_image:
             # Display a preview of the uploaded image
             st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
-        #st.header("Controls")
-       # image_description = st.text_area("Description for Image Generation", height=100, help="Provide a detailed description of the issue for accurate analysis")
-       # generate_image_btn = st.button("Generate Image", help="Click to analyze the uploaded image and issue description")
-
-    #col1, col2 = st.columns(2)
-    
-
+   
         if analyze_btn and uploaded_image and om_issue_description:
             with st.spinner("Analyzing O&M issue..."):
                  base64_image = encode_image(uploaded_image)
@@ -103,32 +83,6 @@ def main():
                  audio_base64 = text_to_speech(solution_text)
                  st.audio(audio_base64, format="audio/mp3")
                  st.success("Analysis and audio solution generated!")
-                 
-
-   # with col1:
-       # st.header("Comic Art")
-     #   if generate_image_btn and image_description:
-           # with st.spinner("Generating image..."):
-              #  image_path = generate_image(image_description)
-               # if image_path:
-                 #   st.image(
-                     #   image_path,
-                       # caption="Generated Comic Image",
-                     #   use_column_width=True,
-                  #  )
-                 #   st.success("Image generated!")
-              #  else:
-                 #   st.error("Failed to generate image.")
-
-  #  with col2:
-      #  st.header("Story")
-       # if generate_image_btn and image_description:
-          #  with st.spinner("Creating a story..."):
-         #       base64_image = encode_image(image_path)
-              #  understood_text = understand_image(base64_image)
-              #  audio_base64 = text_to_speech(understood_text)
-             #   st.audio(audio_base64, format="audio/mp3")
-              #  st.success("Audio generated from image understanding!")
 
 if __name__ == "__main__":
     main()
