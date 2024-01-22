@@ -107,9 +107,9 @@ def main():
             if st.button("Submit Follow-Up", key=f"submit_{st.session_state.follow_up_counter}"):
                 if follow_up_question:
                      with st.spinner("Processing your follow-up question..."):
-                          conversation_history += f"Q: {follow_up_question}\n"
+                          st.session_state.conversation_history += f"Q: {follow_up_question}\n"
                           follow_up_response = handle_ongoing_conversation(base64_image, conversation_history)
-                          conversation_history += f"A: {follow_up_response}\n"
+                          st.session_state.conversation_history += f"A: {follow_up_response}\n"
                           st.write(follow_up_response)
                           st.session_state.follow_up_counter += 1 
           
