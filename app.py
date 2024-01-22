@@ -99,7 +99,7 @@ def main():
             conversation_history += f"Q: {om_issue_description}\nA: {solution_text}\n"# Follow-up interaction loop
         
              
-            follow_up_question_key = f"follow_up_question_{follow_up_counter}"  # Unique key for each iteration
+            follow_up_question_key = f"follow_up_question_{st.session_state.follow_up_counter}" # Unique key for each iteration
             follow_up_question = st.text_input("Do you have any follow-up questions? Type here and press Submit:", key=follow_up_question_key)
             if st.button("Submit Follow-Up", key=f"submit_{st.session_state.follow_up_counter}"):
                 if follow_up_question:
@@ -108,6 +108,6 @@ def main():
                           follow_up_response = handle_ongoing_conversation(base64_image, conversation_history)
                           conversation_history += f"A: {follow_up_response}\n"
                           st.write(follow_up_response)
-                st.session_state.follow_up_counter += 1 
+                          st.session_state.follow_up_counter += 1 
 if __name__ == "__main__":
     main()
