@@ -56,33 +56,30 @@ def text_to_speech(input_text):
 def main():
     st.set_page_config(page_title="OMNI: AI O&M Assistant", layout="wide")
     st.title("OMNI: AI Operations and Maintenance Assistant")
-   # st.set_page_config(page_title="Interactive Media Creator", layout="wide")
-   # st.title("Interactive Media Creator")
-
-    user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password", help="Your Clarifai access token is required for processing")
-
-# Set the environment variable if the user has entered a PAT
-    if user_pat:
-        os.environ['CLARIFAI_PAT'] = user_pat
-        clarifai_pat = os.getenv("CLARIFAI_PAT")
 
     with st.sidebar:
         st.header("Controls")
+        user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password", help="Your Clarifai access token is required for processing")
+        if user_pat:
+            os.environ['CLARIFAI_PAT'] = user_pat
+            clarifai_pat = os.getenv("CLARIFAI_PAT")
+            
         uploaded_image = st.file_uploader("Upload an image related to your O&M issue", type=["png", "jpg", "jpeg"], help="Upload the image related to your O&M issue")
         om_issue_description = st.text_area("Describe your O&M Issue", height=100, help="Provide a detailed description of the issue for accurate analysis")
         analyze_btn = st.button("Analyze Issue", help="Click to analyze the uploaded image and issue description")
-        if uploaded_image:
-            # Display a preview of the uploaded image
-            st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
    
-        if analyze_btn and uploaded_image and om_issue_description:
-            with st.spinner("Analyzing O&M issue..."):
-                 base64_image = encode_image(uploaded_image)
-                 solution_text = analyze_om_issue(base64_image, om_issue_description)
-                 st.write(solution_text)
-                 audio_base64 = text_to_speech(solution_text)
-                 st.audio(audio_base64, format="audio/mp3")
-                 st.success("Analysis and audio solution generated!")
+    if uploaded_image:
+         # Display a preview of the uploaded image
+         st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+   
+    if analyze_btn and uploaded_image and om_issue_description:
+        with st.spinner("Analyzing O&M issue..."):
+            base64_image = encode_image(uploaded_image)
+            solution_text = analyze_om_issue(base64_image, om_issue_description)
+            st.write(solution_text)
+            audio_base64 = text_to_speech(solution_text)
+            st.audio(audio_base64, format="audio/mp3")
+            st.success("Analysis and audio solution generated!")
 
 if __name__ == "__main__":
     main()
