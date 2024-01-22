@@ -28,6 +28,17 @@ def analyze_om_issue(base64_image, user_description):
         prompt.encode(), input_type="text", inference_params=inference_params
     )
     return model_prediction.outputs[0].data.text.raw
+
+def analyze_om_issue_further(base64_image, solution_text, follow_up_question):
+    prompt = f"Analyze this image from the O&M industry, which includes the following description: '{user_description}', and solution you gave: '{solution_text}'. Provide a detailed, practical follow up response to the user's query regarding the solution: '{follow_up_question}':"
+   # prompt = f"Analyze the following image from an Operations and Maintenance industry, considering the user's description of the issue: '{user_description}'. Provide a detailed, professional solution, including safety precautions and step-by-step instructions:"
+    inference_params = dict(temperature=0.5, image_base64=base64_image)
+    model_prediction = Model(
+        "https://clarifai.com/openai/chat-completion/models/gpt-4-vision"
+    ).predict_by_bytes(
+        prompt.encode(), input_type="text", inference_params=inference_params
+    )
+    return model_prediction.outputs[0].data.text.raw
     
 
 def generate_image(user_description):
@@ -80,6 +91,11 @@ def main():
             audio_base64 = text_to_speech(solution_text)
             st.audio(audio_base64, format="audio/mp3")
             st.success("Analysis and audio solution generated!")
+            follow_up_question = st.text_input("Do you have any follow-up questions based on the response? Type here and press Enter:")
+             if follow_up_question:
+                 with st.spinner("Processing your follow-up question..."):
+                      follow_up_response = analyze_om_issue_further(base64_image, solution_text, follow_up_question)
+                      st.write(follow_up_response)
 
 if __name__ == "__main__":
     main()
