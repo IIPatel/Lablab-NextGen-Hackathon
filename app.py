@@ -92,10 +92,10 @@ def main():
             st.audio(audio_base64, format="audio/mp3")
             st.success("Analysis and audio solution generated!")
             follow_up_question = st.text_input("Do you have any follow-up questions based on the response? Type here and press Enter:")
-             if follow_up_question:
-                 with st.spinner("Processing your follow-up question..."):
-                      follow_up_response = analyze_om_issue_further(base64_image, solution_text, follow_up_question)
-                      st.write(follow_up_response)
+            if follow_up_question:
+                with st.spinner("Processing your follow-up question..."):
+                     follow_up_response = analyze_om_issue_further(base64_image, solution_text, follow_up_question)
+                     st.write(follow_up_response)
 
 if __name__ == "__main__":
     main()
