@@ -95,7 +95,7 @@ def main():
     while True:
         follow_up_question = st.text_input("Do you have any follow-up questions? Type here and press Enter:")
         if follow_up_question:
-        with st.spinner("Processing your follow-up question..."):
+            with st.spinner("Processing your follow-up question..."):
             conversation_history += f"Q: {follow_up_question}\n"
             follow_up_response = handle_ongoing_conversation(base64_image, conversation_history)
             conversation_history += f"A: {follow_up_response}\n"
