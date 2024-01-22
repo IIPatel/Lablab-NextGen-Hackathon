@@ -66,10 +66,7 @@ def text_to_speech(input_text):
 def main():
     st.set_page_config(page_title="OMNI: AI O&M Assistant", layout="wide")
     st.title("OMNI: AI Operations and Maintenance Assistant")
-    if 'follow_up_counter' not in st.session_state:
-        st.session_state.follow_up_counter = 0
-    if 'conversation_history' not in st.session_state:
-        st.session_state.conversation_history = ""
+    
     with st.sidebar:
         st.header("Controls")
         user_pat = st.text_input("Enter your Clarifai Personal Access Token:", type="password", help="Your Clarifai access token is required for processing")
@@ -98,21 +95,8 @@ def main():
                     st.success("Audio generated!")
             
             
-            
-            st.session_state.conversation_history += f"Q: {om_issue_description}\nA: {solution_text}\n"# Follow-up interaction loop
-            st.header("Conversation Thread")
-            st.write(st.session_state.conversation_history)
+      
              
-            follow_up_question_key = f"follow_up_question_{st.session_state.follow_up_counter}" # Unique key for each iteration
-            follow_up_question = st.text_input("Do you have any follow-up questions? Type here and press Submit:", key=follow_up_question_key)
-            if st.button("Submit Follow-Up", key=f"submit_{st.session_state.follow_up_counter}"):
-                if follow_up_question:
-                     with st.spinner("Processing your follow-up question..."):
-                          st.session_state.conversation_history += f"Q: {follow_up_question}\n"
-                          follow_up_response = handle_ongoing_conversation(base64_image, st.session_state.conversation_history)
-                          st.session_state.conversation_history += f"A: {follow_up_response}\n"
-                          st.write(follow_up_response)
-                          st.session_state.follow_up_counter += 1 
           
 if __name__ == "__main__":
     main()
