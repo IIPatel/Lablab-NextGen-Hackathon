@@ -86,12 +86,12 @@ def main():
 
         if analyze_btn and uploaded_image and om_issue_description:
             with st.spinner("Analyzing O&M issue..."):
-            base64_image = encode_image(uploaded_image)
-            solution_text = analyze_om_issue(base64_image, om_issue_description)
-            st.write(solution_text)
-            audio_base64 = text_to_speech(solution_text)
-            st.audio(audio_base64, format="audio/mp3")
-            st.success("Analysis and audio solution generated!")
+                 base64_image = encode_image(uploaded_image)
+                 solution_text = analyze_om_issue(base64_image, om_issue_description)
+                 st.write(solution_text)
+                 audio_base64 = text_to_speech(solution_text)
+                 st.audio(audio_base64, format="audio/mp3")
+                 st.success("Analysis and audio solution generated!")
    # with col1:
        # st.header("Comic Art")
      #   if generate_image_btn and image_description:
