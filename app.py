@@ -94,9 +94,7 @@ def main():
                  audio_base64 = text_to_speech(solution_text)
                  st.audio(audio_base64, format="audio/mp3")
                  st.success("Analysis and audio solution generated!")
-                 except Exception as e:
-                     st.error(f"An error occurred: {e}")
-
+                 
 if uploaded_image:
     # Display a preview of the uploaded image
     st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
