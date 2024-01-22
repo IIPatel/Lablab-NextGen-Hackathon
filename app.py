@@ -77,8 +77,11 @@ def main():
     with st.sidebar:
         st.header("Controls")
         uploaded_image = st.file_uploader("Upload an image related to your O&M issue", type=["png", "jpg", "jpeg"], help="Upload the image related to your O&M issue")
-        om_issue_description = st.text_area("Describe your O&M Issue", height=100)
-        analyze_btn = st.button("Analyze Issue")
+        om_issue_description = st.text_area("Describe your O&M Issue", height=100, help="Provide a detailed description of the issue for accurate analysis")
+        analyze_btn = st.button("Analyze Issue", help="Click to analyze the uploaded image and issue description")
+        if uploaded_image
+        # Display a preview of the uploaded image
+        st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
         #st.header("Controls")
        # image_description = st.text_area("Description for Image Generation", height=100, help="Provide a detailed description of the issue for accurate analysis")
        # generate_image_btn = st.button("Generate Image", help="Click to analyze the uploaded image and issue description")
@@ -95,9 +98,7 @@ def main():
                  st.audio(audio_base64, format="audio/mp3")
                  st.success("Analysis and audio solution generated!")
                  
-if uploaded_image:
-    # Display a preview of the uploaded image
-    st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
+
    # with col1:
        # st.header("Comic Art")
      #   if generate_image_btn and image_description:
