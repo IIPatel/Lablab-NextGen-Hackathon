@@ -79,6 +79,7 @@ def main():
             
         uploaded_image = st.file_uploader("Upload an image related to your O&M issue", type=["png", "jpg", "jpeg"], help="Upload the image related to your O&M issue")
         om_issue_description = st.text_area("Describe your O&M Issue", height=100, help="Provide a detailed description of the issue for accurate analysis")
+        
         analyze_btn = st.button("Analyze Issue", help="Click to analyze the uploaded image and issue description")
    
     if uploaded_image:
@@ -99,7 +100,7 @@ def main():
             
             
             st.session_state.conversation_history += f"Q: {om_issue_description}\nA: {solution_text}\n"# Follow-up interaction loop
-        
+     st.text(st.session_state.conversation_history)
              
             follow_up_question_key = f"follow_up_question_{st.session_state.tfollow_up_counter}" # Unique key for each iteration
             follow_up_question = st.text_input("Do you have any follow-up questions? Type here and press Submit:", key=follow_up_question_key)
@@ -111,6 +112,6 @@ def main():
                           conversation_history += f"A: {follow_up_response}\n"
                           st.write(follow_up_response)
                           st.session_state.follow_up_counter += 1 
-st.text(st.session_state.conversation_history)
+          
 if __name__ == "__main__":
     main()
