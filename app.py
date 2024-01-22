@@ -92,13 +92,16 @@ def main():
             st.success("Analysis and audio solution generated!")
             conversation_history = ""  # Initialize conversation history
             conversation_history += f"Q: {om_issue_description}\nA: {initial_response}\n"# Follow-up interaction loop
-    while True:
-        follow_up_question = st.text_input("Do you have any follow-up questions? Type here and press Enter:")
-        if follow_up_question:
-            with st.spinner("Processing your follow-up question..."):
-                 conversation_history += f"Q: {follow_up_question}\n"
-                 follow_up_response = handle_ongoing_conversation(base64_image, conversation_history)
-                 conversation_history += f"A: {follow_up_response}\n"
-                 st.write(follow_up_response)
+        while True:
+             follow_up_counter = 0
+             follow_up_question_key = f"follow_up_question_{follow_up_counter}"  # Unique key for each iteration
+             follow_up_question = st.text_input("Do you have any follow-up questions? Type here and press Enter:", key=follow_up_question_key)
+             if follow_up_question:
+                with st.spinner("Processing your follow-up question..."):
+                      conversation_history += f"Q: {follow_up_question}\n"
+                      follow_up_response = handle_ongoing_conversation(base64_image, conversation_history)
+                      conversation_history += f"A: {follow_up_response}\n"
+                      st.write(follow_up_response)
+                      follow_up_counter += 1
 if __name__ == "__main__":
     main()
